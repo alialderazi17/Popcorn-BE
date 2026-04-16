@@ -1,0 +1,32 @@
+{
+  "name": "popcorn-be",
+  "version": "1.0.0",
+  "description": "Popcorn is a website where you can search for types of media and filter them by genre, and add them to a watchlist with different states.\r ##\r ## Collaborators: [Abeer Rozba](https://github.com/abeer-rozba), [Mohamed Hasan](https://github.com/mohammed-abadi), [Yasmeen Ebrahim](https://github.com/yasmeeneb1999)\r ***\r ### ***Technologies Used*** \r - React\r - MongoDB\r - Express\r - Node.js\r - Vite\r - JWT Auth\r - CSS\r - Insomnia\r ***\r ### ***Getting started***\r - A visitor can view and see the Genre list page, and the Genre pages.\r - A vistor should sign-up to the website in order to get access for features.\r - When the user signs in, it can create a watchlist to and add different types of media.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alialderazi17/Popcorn-BE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/alialderazi17/Popcorn-BE/issues"
+  },
+  "homepage": "https://github.com/alialderazi17/Popcorn-BE#readme",
+  "dependencies": {
+    "axios": "^1.15.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.4.1",
+    "morgan": "^1.10.1"
+  }
+}
