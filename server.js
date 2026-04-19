@@ -12,6 +12,7 @@ const app = express()
 
 const mediaRouter = require("./routes/MediaRouter")
 const genreRouter = require("./routes/genreRouter")
+const mediaListRouter = require("./routes/mediaListRouter")
 
 app.use(cors())
 app.use(morgan("dev"))
@@ -20,7 +21,7 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use("/media", mediaRouter)
 app.use("/genres", genreRouter)
-
+app.use("/medialists", mediaListRouter)
 app.get("/", (req, res) => {
   res.send("Server is running!")
 })
