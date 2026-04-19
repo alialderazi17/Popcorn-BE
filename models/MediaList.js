@@ -20,7 +20,12 @@ const mediaListSchema = new mongoose.Schema(
         ref: 'Media',
         required: false
       }
-    ]
+    ],
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    }
   },
   {
     timestamps: true
