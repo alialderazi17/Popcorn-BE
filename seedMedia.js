@@ -4,11 +4,10 @@ const mongoose = require("mongoose")
 const Media = require("./models/Media")
 const { BASE_URL } = require("./globals")
 
-const connectionString = "mongodb://127.0.0.1:27017/popcornDatabase"
-
 const seedDB = async () => {
   try {
-    await mongoose.connect(connectionString)
+    await mongoose.connect(process.env.MONGODB_URI)
+    console.log("Connected to Atlas via MONGODB_URI")
 
     await Media.deleteMany({})
 
@@ -22,7 +21,7 @@ const seedDB = async () => {
     const movies = movieRes.data.results.map((m) => ({
       title: m.title,
       description: m.overview,
-      releaseDate: new Date(m.release_date),
+      releaseDate: m.release_date ? new Date(m.release_date) : new Date(),
       mediaType: "movie",
       rating: m.vote_average,
       image: `https://image.tmdb.org/t/p/w500${m.poster_path}`,
@@ -32,7 +31,7 @@ const seedDB = async () => {
     const tvShows = tvRes.data.results.map((t) => ({
       title: t.name,
       description: t.overview,
-      releaseDate: new Date(t.first_air_date),
+      releaseDate: t.first_air_date ? new Date(t.first_air_date) : new Date(),
       mediaType: "tv",
       rating: t.vote_average,
       image: `https://image.tmdb.org/t/p/w500${t.poster_path}`,
@@ -42,8 +41,10 @@ const seedDB = async () => {
     const allMedia = [...movies, ...tvShows]
     await Media.insertMany(allMedia)
 
+    console.log("Seed successful!")
     process.exit()
   } catch (error) {
+    console.error("Seed failed:", error.message)
     process.exit(1)
   }
 }
