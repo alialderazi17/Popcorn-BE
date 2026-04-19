@@ -1,9 +1,8 @@
-const router = require('express').Router()
-const MediaController = require('../controllers/MediaController')
+const router = require("express").Router()
+const MediaController = require("../controllers/mediaController")
 
+router.get("/movies", MediaController.getMovies)
 
-router.get('/movies', getMovies)
-
-router.get('/tv',getTV)
+router.get("/tv", MediaController.getTV)
 
 module.exports = router
