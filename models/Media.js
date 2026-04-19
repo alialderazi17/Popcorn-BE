@@ -25,7 +25,14 @@ const mediaSchema = new mongoose.Schema(
     image: {
       type: String,
       required: true
-    }
+    },
+    genre: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Genre',
+        required: true
+      }
+    ]
   },
   {
     timestamps: true
