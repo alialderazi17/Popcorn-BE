@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/auth', authRouter)
 app.use('/media', mediaRouter)
 app.use('/genres', genreRouter)
-app.use('/medialists', mediaListRouter)
+app.use('/watchlist', mediaListRouter)
 app.get('/', (req, res) => {
   res.send('Server is running!')
 })
