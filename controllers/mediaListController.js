@@ -1,10 +1,12 @@
+const mongoose = require('mongoose')
 const MediaList = require('../models/MediaList')
 const Media = require('../models/Media')
 const getMediaListByUser = async (req, res) => {
   try {
-    const list = await MediaList.find({ user: req.params.userId }).populate(
-      'items'
-    )
+    const list = await MediaList.find({ user: req.params.userId }).populate({
+      path: 'items.media',
+      populate: { path: 'genre' },
+    })
     res.json(list)
   } catch (error) {
     console.error(error)
@@ -23,6 +25,36 @@ const createMediaList = async (req, res) => {
   }
 }
 
+const addToMediaList = async (req, res) => {
+  try {
+    const { userId } = req.params
+    const { media, status } = req.body
+
+    const listExists = await MediaList.findOne({
+      user: userId,
+      'items.media': media,
+    })
+
+    if (listExists) {
+      return res.status(400).json({ message: 'Item already in list' })
+    }
+
+    const updatedList = await MediaList.findOneAndUpdate(
+      { user: userId },
+      { $push: { items: { media, status: status || 'Plan to watch' } } },
+      { new: true, upsert: true }
+    ).populate({
+      path: 'items.media',
+      populate: { path: 'genre' },
+    })
+
+    res.json(updatedList)
+  } catch (error) {
+    console.error(error)
+    res.status(400).json({ message: 'Error adding item', error: error.message })
+  }
+}
+
 const updateMediaList = async (req, res) => {
   try {
     const updatedList = await MediaList.findOneAndUpdate(
@@ -33,6 +65,31 @@ const updateMediaList = async (req, res) => {
     res.json(updatedList)
   } catch (error) {
     res.status(400).json({ message: 'Error updating list' })
+  }
+}
+
+const removeFromMediaList = async (req, res) => {
+  try {
+    const { userId } = req.params
+    const { media } = req.body
+
+    const updatedList = await MediaList.findOneAndUpdate(
+      { user: userId },
+      { $pull: { items: { media: media } } },
+      { new: true }
+    ).populate({
+      path: 'items.media',
+      populate: { path: 'genre' },
+    })
+
+    if (!updatedList) {
+      return res.status(404).json({ message: 'List not found' })
+    }
+
+    res.json(updatedList)
+  } catch (error) {
+    console.error(error)
+    res.status(400).json({ message: 'Error removing item from list' })
   }
 }
 
@@ -48,6 +105,8 @@ const deleteMediaList = async (req, res) => {
 module.exports = {
   getMediaListByUser,
   createMediaList,
+  addToMediaList,
   updateMediaList,
+  removeFromMediaList,
   deleteMediaList,
 }
