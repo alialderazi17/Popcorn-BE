@@ -1,4 +1,4 @@
-const { User } = require('../models/User')
+const User = require('../models/User')
 const middleware = require('../middleware')
 
 const register = async (req, res) => {
@@ -14,9 +14,10 @@ const register = async (req, res) => {
       res.send(user)
     }
   } catch (error) {
+    console.error(error)
     return res.status(401).send({
       status: 'Error',
-      msg: 'An error has occurred while registering this user!'
+      msg: 'An error has occurred while registering this user!',
     })
   }
 }
@@ -33,25 +34,25 @@ const login = async (req, res) => {
       let payload = {
         id: user._id,
         email: user.email,
-        username: user.username
+        username: user.username,
       }
       let token = middleware.createToken(payload)
       let userData = {
         id: user._id,
         email: user.email,
-        username: user.username
+        username: user.username,
       }
       return res.send({ user: userData, token })
     } else {
       return res.status(401).send({
         status: 'Error',
-        msg: 'Incorrect password!'
+        msg: 'Incorrect password!',
       })
     }
   } catch (error) {
     return res.status(401).send({
       status: 'Error',
-      msg: 'An error has occurred while logging in!'
+      msg: 'An error has occurred while logging in!',
     })
   }
 }
@@ -67,12 +68,12 @@ const updatePassword = async (req, res) => {
     if (matched) {
       let passwordDigest = await middleware.hashPassword(newPassword)
       user = await User.findByIdAndUpdate(req.params.id, {
-        passwordDigest
+        passwordDigest,
       })
       let payload = {
         id: user._id,
         email: user.email,
-        username: user.username
+        username: user.username,
       }
       return res
         .status(200)
@@ -80,13 +81,13 @@ const updatePassword = async (req, res) => {
     } else {
       return res.status(401).send({
         status: 'Error',
-        msg: 'Incorrect password!'
+        msg: 'Incorrect password!',
       })
     }
   } catch (error) {
     return res.status(401).send({
       status: 'Error',
-      msg: 'An error has occurred while updating the password!'
+      msg: 'An error has occurred while updating the password!',
     })
   }
 }
@@ -100,5 +101,5 @@ module.exports = {
   register,
   login,
   updatePassword,
-  checkSession
+  checkSession,
 }
