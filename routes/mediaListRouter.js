@@ -9,6 +9,12 @@ router.post(
   middleware.verifyToken,
   mediaListController.createMediaList
 )
+router.post(
+  '/:userId/',
+  middleware.stripToken,
+  middleware.verifyToken,
+  mediaListController.addToMediaList
+)
 router.put(
   '/:userId',
   middleware.stripToken,
@@ -16,10 +22,16 @@ router.put(
   mediaListController.updateMediaList
 )
 router.delete(
-  '/:userId',
+  '/delete/:userId',
   middleware.stripToken,
   middleware.verifyToken,
   mediaListController.deleteMediaList
+)
+router.delete(
+  '/:userId',
+  middleware.stripToken,
+  middleware.verifyToken,
+  mediaListController.removeFromMediaList
 )
 
 module.exports = router
