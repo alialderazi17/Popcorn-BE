@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const mediaSchema = new mongoose.Schema(
   {
@@ -8,9 +8,11 @@ const mediaSchema = new mongoose.Schema(
     mediaType: { type: String, required: true },
     rating: { type: Number, required: true },
     image: { type: String, required: true },
-    genre: [{ type: String }],
+    genre: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'Media', required: true },
+    ],
   },
   { timestamps: true }
 )
 
-module.exports = mongoose.model("Media", mediaSchema)
+module.exports = mongoose.model('Media', mediaSchema)

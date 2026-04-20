@@ -1,0 +1,92 @@
+[
+  {
+    "tmdbId": 28,
+    "name": "Action",
+    "description": "High-octane movies featuring stunts, chases, and heroic battles."
+  },
+  {
+    "tmdbId": 12,
+    "name": "Adventure",
+    "description": "Journeys to exciting and exotic locations, full of discovery."
+  },
+  {
+    "tmdbId": 16,
+    "name": "Animation",
+    "description": "Artistic storytelling through hand-drawn or computer-generated visuals."
+  },
+  {
+    "tmdbId": 35,
+    "name": "Comedy",
+    "description": "Humorous stories designed to entertain and provoke laughter."
+  },
+  {
+    "tmdbId": 80,
+    "name": "Crime",
+    "description": "Tales of criminals, detectives, and the darker side of society."
+  },
+  {
+    "tmdbId": 99,
+    "name": "Documentary",
+    "description": "Fact-based explorations of real people, places, and events."
+  },
+  {
+    "tmdbId": 18,
+    "name": "Drama",
+    "description": "Character-driven stories focusing on emotional and relational conflict."
+  },
+  {
+    "tmdbId": 10751,
+    "name": "Family",
+    "description": "Wholesome entertainment suitable for viewers of all ages."
+  },
+  {
+    "tmdbId": 14,
+    "name": "Fantasy",
+    "description": "Imaginary worlds filled with magic, myth, and wonder."
+  },
+  {
+    "tmdbId": 36,
+    "name": "History",
+    "description": "Narratives based on significant historical events and figures."
+  },
+  {
+    "tmdbId": 27,
+    "name": "Horror",
+    "description": "Stories designed to elicit fear, suspense, and terror."
+  },
+  {
+    "tmdbId": 10402,
+    "name": "Music",
+    "description": "Films where music and performance play a central role."
+  },
+  {
+    "tmdbId": 9648,
+    "name": "Mystery",
+    "description": "Suspenseful stories revolving around solving a secret or crime."
+  },
+  {
+    "tmdbId": 10749,
+    "name": "Romance",
+    "description": "Stories focused on love, relationships, and emotional intimacy."
+  },
+  {
+    "tmdbId": 878,
+    "name": "Sci-Fi",
+    "description": "Futuristic concepts involving science, technology, and space."
+  },
+  {
+    "tmdbId": 53,
+    "name": "Thriller",
+    "description": "Fast-paced stories filled with tension, excitement, and suspense."
+  },
+  {
+    "tmdbId": 10752,
+    "name": "War",
+    "description": "Narratives focusing on military conflict and the human experience of war."
+  },
+  {
+    "tmdbId": 37,
+    "name": "Western",
+    "description": "Stories set in the American Old West involving outlaws and frontiersmen."
+  }
+]

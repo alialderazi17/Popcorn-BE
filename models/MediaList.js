@@ -2,33 +2,25 @@ const mongoose = require('mongoose')
 
 const mediaListSchema = new mongoose.Schema(
   {
-    status: {
-      type: String,
-      required: true
-    },
-    score: {
-      type: Number,
-      required: true
-    },
-    dateAdded: {
-      type: Date,
-      required: true
-    },
     items: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Media',
-        required: false
-      }
+        media: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Media',
+          required: false,
+        },
+        status: { type: String },
+        dateAdded: { type: Date, default: Date.now },
+      },
     ],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true
-    }
+      required: true,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 )
 
