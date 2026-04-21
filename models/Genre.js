@@ -18,6 +18,13 @@ const genreSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    media: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Media',
+        required: true,
+      },
+    ],
   },
   { timestamps: true }
 )
