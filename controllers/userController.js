@@ -16,6 +16,21 @@ const showUserPage = async (req, res) => {
   }
 }
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({})
+
+    res.status(200).send(users)
+  } catch (error) {
+    console.error(error)
+    return res.status(401).send({
+      status: 'Error',
+      msg: 'An error has occurred trying to get all users!',
+    })
+  }
+}
+
 module.exports = {
   showUserPage,
+  getAllUsers,
 }
