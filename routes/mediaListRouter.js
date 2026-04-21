@@ -25,13 +25,6 @@ router.delete(
   mediaListController.removeFromMediaList
 )
 
-router.delete(
-  "/all/:userId",
-  middleware.stripToken,
-  middleware.verifyToken,
-  mediaListController.deleteMediaList
-)
-
 router.post(
   "/",
   middleware.stripToken,
