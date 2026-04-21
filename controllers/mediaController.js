@@ -1,4 +1,5 @@
 const Media = require('../models/Media')
+const Genre = require('../models/Genre')
 const getMovies = async (req, res) => {
   try {
     const movies = await Media.find({ mediaType: 'movie' }).populate('genre')
