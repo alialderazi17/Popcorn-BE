@@ -8,7 +8,6 @@ const mediaListSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Media',
           required: false,
-          unique: true,
         },
         status: { type: String },
         userRating: { type: String },
