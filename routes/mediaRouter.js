@@ -3,7 +3,7 @@ const MediaController = require('../controllers/mediaController')
 
 router.get('/movies', MediaController.getMovies)
 
-router.get('/movies/:id', MediaController.getMovieById)
+router.get('/movie/:id', MediaController.getMovieById)
 
 router.get('/tv', MediaController.getTV)
 
