@@ -1,18 +1,20 @@
-const mongoose = require('mongoose')
-const MediaList = require('../models/MediaList')
-const Media = require('../models/Media')
-const Genre = require('../models/Genre')
+const mongoose = require("mongoose")
+const MediaList = require("../models/MediaList")
+const Media = require("../models/Media")
+const Genre = require("../models/Genre")
+
 const getMediaListByUser = async (req, res) => {
   try {
-    const list = await MediaList.find({ user: req.params.userId }).populate({
-      path: 'items.media',
-      populate: { path: 'genre' },
+    const list = await MediaList.findOne({ user: req.params.userId }).populate({
+      path: "items.media",
+      populate: { path: "genre" },
     })
 
+    if (!list) return res.status(200).send({ items: [] })
     res.status(200).send(list)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: 'Error fetching user media list' })
+    res.status(500).json({ message: "Error fetching user media list" })
   }
 }
 
@@ -23,22 +25,22 @@ const createMediaList = async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .json({ message: 'Error creating list', error: error.message })
+      .json({ message: "Error creating list", error: error.message })
   }
 }
 
 const addToMediaList = async (req, res) => {
   try {
     const { userId } = req.params
-    const { media, status, userRating } = req.body
+    const { media, status, userRating, description } = req.body
 
     const listExists = await MediaList.findOne({
       user: userId,
-      'items.media': media,
+      "items.media": media,
     })
 
     if (listExists) {
-      return res.status(400).json({ message: 'Item already in list' })
+      return res.status(400).json({ message: "Item already in list" })
     }
 
     const updatedList = await MediaList.findOneAndUpdate(
@@ -47,21 +49,22 @@ const addToMediaList = async (req, res) => {
         $push: {
           items: {
             media,
-            status: status || 'Plan to watch',
+            status: status || "plan to watch",
             userRating: userRating,
+            description: description,
           },
         },
       },
       { new: true, upsert: true }
     ).populate({
-      path: 'items.media',
-      populate: { path: 'genre' },
+      path: "items.media",
+      populate: { path: "genre" },
     })
 
     res.status(200).send(updatedList)
   } catch (error) {
     console.error(error)
-    res.status(400).json({ message: 'Error adding item', error: error.message })
+    res.status(400).json({ message: "Error adding item", error: error.message })
   }
 }
 
@@ -74,7 +77,7 @@ const updateMediaList = async (req, res) => {
     )
     res.status(200).send(updatedList)
   } catch (error) {
-    res.status(400).json({ message: 'Error updating list' })
+    res.status(400).json({ message: "Error updating list" })
   }
 }
 
@@ -88,27 +91,27 @@ const removeFromMediaList = async (req, res) => {
       { $pull: { items: { media: media } } },
       { new: true }
     ).populate({
-      path: 'items.media',
-      populate: { path: 'genre' },
+      path: "items.media",
+      populate: { path: "genre" },
     })
 
     if (!updatedList) {
-      return res.status(404).json({ message: 'List not found' })
+      return res.status(404).json({ message: "List not found" })
     }
 
     res.status(200).send(updatedList)
   } catch (error) {
     console.error(error)
-    res.status(400).json({ message: 'Error removing item from list' })
+    res.status(400).json({ message: "Error removing item from list" })
   }
 }
 
 const deleteMediaList = async (req, res) => {
   try {
     await MediaList.findOneAndDelete({ user: req.params.userId })
-    res.status(200).json({ message: 'User media list deleted' })
+    res.status(200).json({ message: "User media list deleted" })
   } catch (error) {
-    res.status(500).json({ message: 'Error deleting list' })
+    res.status(500).json({ message: "Error deleting list" })
   }
 }
 
