@@ -56,6 +56,9 @@ const seedDB = async () => {
     console.log('Syncing Genres...')
     const genreLookup = {}
 
+    // 1. Clear existing media links in Genre documents to prevent broken references
+    await Genre.updateMany({}, { $set: { media: [] } })
+
     for (const g of genresData) {
       const doc = await Genre.findOneAndUpdate(
         { name: g.name },
@@ -82,10 +85,25 @@ const seedDB = async () => {
     const allMedia = [...movies, ...tvShows]
 
     if (allMedia.length > 0) {
-      await Media.insertMany(allMedia)
-      console.log(`Successfully seeded ${allMedia.length} items!`)
+      // 2. Insert Media and store the returned documents (which now have _ids)
+      const seededMedia = await Media.insertMany(allMedia)
+      console.log(`Successfully seeded ${seededMedia.length} items!`)
+
+      console.log('Linking Media to Genres...')
+
+      // 3. Reverse Link: For every seeded Media, update the corresponding Genre documents
+      for (const item of seededMedia) {
+        if (item.genre && item.genre.length > 0) {
+          await Genre.updateMany(
+            { _id: { $in: item.genre } },
+            { $push: { media: item._id } }
+          )
+        }
+      }
+      console.log('Two-way relationship established.')
     }
 
+    console.log('Seeding process complete.')
     process.exit(0)
   } catch (error) {
     console.error('Seed failed:', error.message)

@@ -11,7 +11,7 @@ const getAllGenres = async (req, res) => {
 
 const getGenreById = async (req, res) => {
   try {
-    const genre = await Genre.findById(req.params.id)
+    const genre = await Genre.findById(req.params.id).populate('media')
     if (!genre) return res.status(404).json({ message: 'Genre not found' })
     res.status(200).send(genre)
   } catch (error) {
