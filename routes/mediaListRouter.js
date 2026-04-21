@@ -1,37 +1,42 @@
-const router = require('express').Router()
-const mediaListController = require('../controllers/mediaListController')
-const middleware = require('../middleware')
+const router = require("express").Router()
+const mediaListController = require("../controllers/mediaListController")
+const middleware = require("../middleware")
 
-router.get('/:userId', mediaListController.getMediaListByUser)
+router.get("/:userId", mediaListController.getMediaListByUser)
+
 router.post(
-  '/',
-  middleware.stripToken,
-  middleware.verifyToken,
-  mediaListController.createMediaList
-)
-router.post(
-  '/:userId/',
+  "/:userId",
   middleware.stripToken,
   middleware.verifyToken,
   mediaListController.addToMediaList
 )
+
 router.put(
-  '/:userId',
+  "/:userId",
   middleware.stripToken,
   middleware.verifyToken,
   mediaListController.updateMediaList
 )
+
 router.delete(
-  '/delete/:userId',
+  "/:userId",
+  middleware.stripToken,
+  middleware.verifyToken,
+  mediaListController.removeFromMediaList
+)
+
+router.delete(
+  "/all/:userId",
   middleware.stripToken,
   middleware.verifyToken,
   mediaListController.deleteMediaList
 )
-router.delete(
-  '/:userId',
+
+router.post(
+  "/",
   middleware.stripToken,
   middleware.verifyToken,
-  mediaListController.removeFromMediaList
+  mediaListController.createMediaList
 )
 
 module.exports = router
