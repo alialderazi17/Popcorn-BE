@@ -88,5 +88,45 @@
     "tmdbId": 37,
     "name": "Western",
     "description": "Stories set in the American Old West involving outlaws and frontiersmen."
+  },
+  {
+    "tmdbId": 10759,
+    "name": "Action & Adventure",
+    "description": "TV series featuring high-stakes journeys and heroic feats."
+  },
+  {
+    "tmdbId": 10762,
+    "name": "Documentary",
+    "description": "Non-fiction television exploring real-world events and knowledge."
+  },
+  {
+    "tmdbId": 10763,
+    "name": "News",
+    "description": "Broadcasts of current events and investigative journalism."
+  },
+  {
+    "tmdbId": 10764,
+    "name": "Reality",
+    "description": "Television featuring unscripted real-life situations and competitions."
+  },
+  {
+    "tmdbId": 10765,
+    "name": "Sci-Fi & Fantasy",
+    "description": "TV shows exploring alternate realities, magic, and advanced technology."
+  },
+  {
+    "tmdbId": 10766,
+    "name": "Soap",
+    "description": "Serial dramas characterized by emotional and interpersonal storylines."
+  },
+  {
+    "tmdbId": 10767,
+    "name": "Talk",
+    "description": "Programs centered around interviews and social discussion."
+  },
+  {
+    "tmdbId": 10768,
+    "name": "War & Politics",
+    "description": "Dramas centered on military strategy and government intrigue."
   }
 ]
