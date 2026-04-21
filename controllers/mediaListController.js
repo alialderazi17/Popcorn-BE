@@ -1,12 +1,14 @@
 const mongoose = require('mongoose')
 const MediaList = require('../models/MediaList')
 const Media = require('../models/Media')
+const Genre = require('../models/Genre')
 const getMediaListByUser = async (req, res) => {
   try {
     const list = await MediaList.find({ user: req.params.userId }).populate({
       path: 'items.media',
       populate: { path: 'genre' },
     })
+
     res.json(list)
   } catch (error) {
     console.error(error)
@@ -28,7 +30,7 @@ const createMediaList = async (req, res) => {
 const addToMediaList = async (req, res) => {
   try {
     const { userId } = req.params
-    const { media, status } = req.body
+    const { media, status, userRating } = req.body
 
     const listExists = await MediaList.findOne({
       user: userId,
@@ -41,7 +43,15 @@ const addToMediaList = async (req, res) => {
 
     const updatedList = await MediaList.findOneAndUpdate(
       { user: userId },
-      { $push: { items: { media, status: status || 'Plan to watch' } } },
+      {
+        $push: {
+          items: {
+            media,
+            status: status || 'Plan to watch',
+            userRating: userRating,
+          },
+        },
+      },
       { new: true, upsert: true }
     ).populate({
       path: 'items.media',

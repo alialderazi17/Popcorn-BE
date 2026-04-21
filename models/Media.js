@@ -9,7 +9,7 @@ const mediaSchema = new mongoose.Schema(
     rating: { type: Number, required: true },
     image: { type: String, required: true },
     genre: [
-      { type: mongoose.Schema.Types.ObjectId, ref: 'Media', required: true },
+      { type: mongoose.Schema.Types.ObjectId, ref: 'Genre', required: true },
     ],
   },
   { timestamps: true }
