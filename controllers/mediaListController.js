@@ -9,7 +9,7 @@ const getMediaListByUser = async (req, res) => {
       populate: { path: 'genre' },
     })
 
-    res.json(list)
+    res.status(200).send(list)
   } catch (error) {
     console.error(error)
     res.status(500).json({ message: 'Error fetching user media list' })
@@ -58,7 +58,7 @@ const addToMediaList = async (req, res) => {
       populate: { path: 'genre' },
     })
 
-    res.json(updatedList)
+    res.status(200).send(updatedList)
   } catch (error) {
     console.error(error)
     res.status(400).json({ message: 'Error adding item', error: error.message })
@@ -72,7 +72,7 @@ const updateMediaList = async (req, res) => {
       req.body,
       { new: true }
     )
-    res.json(updatedList)
+    res.status(200).send(updatedList)
   } catch (error) {
     res.status(400).json({ message: 'Error updating list' })
   }
@@ -96,7 +96,7 @@ const removeFromMediaList = async (req, res) => {
       return res.status(404).json({ message: 'List not found' })
     }
 
-    res.json(updatedList)
+    res.status(200).send(updatedList)
   } catch (error) {
     console.error(error)
     res.status(400).json({ message: 'Error removing item from list' })
@@ -106,7 +106,7 @@ const removeFromMediaList = async (req, res) => {
 const deleteMediaList = async (req, res) => {
   try {
     await MediaList.findOneAndDelete({ user: req.params.userId })
-    res.json({ message: 'User media list deleted' })
+    res.status(200).json({ message: 'User media list deleted' })
   } catch (error) {
     res.status(500).json({ message: 'Error deleting list' })
   }
