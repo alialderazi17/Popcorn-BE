@@ -11,6 +11,7 @@ const mediaListSchema = new mongoose.Schema(
           unique: true,
         },
         status: { type: String },
+        userRating: { type: String },
         dateAdded: { type: Date, default: Date.now },
       },
     ],
