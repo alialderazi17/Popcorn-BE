@@ -72,14 +72,28 @@ const addToMediaList = async (req, res) => {
 
 const updateMediaList = async (req, res) => {
   try {
+    const { userId } = req.params
+    const { mediaId, status, userRating, description } = req.body
+
     const updatedList = await MediaList.findOneAndUpdate(
-      { user: req.params.userId },
-      req.body,
+      { user: userId, "items.media": mediaId },
+      {
+        $set: {
+          "items.$.status": status,
+          "items.$.userRating": userRating,
+          "items.$.description": description,
+        },
+      },
       { new: true }
-    )
+    ).populate({
+      path: "items.media",
+      populate: { path: "genre" },
+    })
+
     res.status(200).send(updatedList)
   } catch (error) {
-    res.status(400).json({ message: 'Error updating list' })
+    console.error(error)
+    res.status(400).json({ message: "Error updating list" })
   }
 }
 
