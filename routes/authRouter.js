@@ -10,7 +10,12 @@ router.put(
   middleware.verifyToken,
   authController.updatePassword
 )
-router.put("/update-pfp/:id", authController.updateProfilePic)
+router.put(
+  "/update-pfp/:id",
+  middleware.stripToken,
+  middleware.verifyToken,
+  authController.updateProfilePic
+)
 router.get(
   "/session",
   middleware.stripToken,
