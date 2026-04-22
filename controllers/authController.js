@@ -50,6 +50,7 @@ const login = async (req, res) => {
       })
     }
   } catch (error) {
+    console.error(error)
     return res.status(401).send({
       status: "Error",
       msg: "An error has occurred while logging in!",
@@ -102,12 +103,10 @@ const updateProfilePic = async (req, res) => {
     if (!user) {
       return res.status(404).send({ status: "Error", msg: "User not found!" })
     }
-    res
-      .status(200)
-      .send({
-        status: "Successfully updated PFP!",
-        profilePic: user.profilePic,
-      })
+    res.status(200).send({
+      status: "Successfully updated PFP!",
+      profilePic: user.profilePic,
+    })
   } catch (error) {
     res.status(500).send({ status: "Error Updating PFP!", msg: error.message })
   }
