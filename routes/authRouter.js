@@ -1,17 +1,18 @@
-const router = require('express').Router()
-const authController = require('../controllers/authController')
-const middleware = require('../middleware')
+const router = require("express").Router()
+const authController = require("../controllers/authController")
+const middleware = require("../middleware")
 
-router.post('/register', authController.register)
-router.post('/login', authController.login)
+router.post("/register", authController.register)
+router.post("/login", authController.login)
 router.put(
-  '/update-password/:id',
+  "/update-password/:id",
   middleware.stripToken,
   middleware.verifyToken,
   authController.updatePassword
 )
+router.put("/update-pfp/:id", authController.updateProfilePic)
 router.get(
-  '/session',
+  "/session",
   middleware.stripToken,
   middleware.verifyToken,
   authController.checkSession
